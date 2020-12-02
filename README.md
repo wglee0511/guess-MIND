@@ -8,6 +8,8 @@ Realtime Drawing Game built with Node.js, gulp and Socket IO
 
 -[x] Pug
 
--[] Static
+-[x] Static
+
+-[x] Eslint
 
 -[] Socket IO

@@ -1,0 +1,1 @@
+// static is for front-end
