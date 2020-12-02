@@ -1,0 +1,21 @@
+{
+  "name": "guess-MIND",
+  "version": "1.0.0",
+  "description": "Realtime Drawing Game built with Node.js, gulp and Socket IO",
+  "main": "index.js",
+  "repository": "https://github.com/wglee0511/guess-MIND.git",
+  "author": "wglee0511 <ranazang@naver.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.12.9",
+    "@babel/node": "^7.12.6",
+    "@babel/preset-env": "^7.12.7",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "pug": "^3.0.0",
+    "socket.io": "^3.0.3"
+  },
+  "scripts": {
+    "dev:server": "nodemon --exec babel-node src/server.js"
+  }
+}
