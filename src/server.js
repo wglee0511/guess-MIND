@@ -2,7 +2,7 @@ import express from "express";
 import socketIO from "socket.io";
 import logger from "morgan";
 
-const PORT = 4000;
+const PORT = 5000;
 const app = express();
 
 app.set('views','src/views'); 
