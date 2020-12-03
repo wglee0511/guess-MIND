@@ -1,3 +1,4 @@
+import {handleNoti} from "./chat"
 // static is for front-end
 
 const socket = io("/");
@@ -11,9 +12,4 @@ function setNickName(nickname){
     socket.emit("setNickName", { nickname : nickname })
 }
 
-function handleNoti(data){
-    const {message, nickname} = data;
-    console.log( `${nickname} : ${message}` )
-}
-
-socket.on("messageNoti",handleNoti)
+socket.on("messageNoti",handleNoti) 
