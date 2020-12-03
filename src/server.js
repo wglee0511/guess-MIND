@@ -1,6 +1,8 @@
 import express from "express";
 import socketIO from "socket.io";
 import logger from "morgan";
+import socketController from "./socketController";
+import events from "./events";
 
 const PORT = 5000;
 const app = express();
@@ -13,7 +15,7 @@ app.use(express.static("src/static"));
 // it is same with app.use(express.static(join(_dirname, "static")))
 // it is need to import join from "path"
 
-app.get("/", (req, res) => res.render("home"))
+app.get("/", (req, res) => res.render("home", { events: JSON.stringify(events) }))
 
 
 const hadleServerListener = () => {
@@ -23,15 +25,5 @@ const hadleServerListener = () => {
 const server =  app.listen(PORT,hadleServerListener);
 const io = socketIO(server);
 
-io.on("connection", socket => {
-    socket.on("newMessage", ({message}) => {
-        socket.broadcast.emit("messageNoti",{ 
-            message,
-            nickname : socket.nickname || "Anon"
-         })
-    });
-    socket.on("setNickName", ({nickname}) => {
-        socket.nickname = nickname;
-    })
-});
+io.on("connection", socket => socketController(socket));
 
