@@ -1,3 +1,5 @@
+const { initSockets } = require("./sockets");
+
 const body = document.querySelector("body");
 const loginForm = document.getElementById("jsLogin");
 
@@ -9,8 +11,9 @@ const LOGGED_OUT = "loggedOut";
 const LOGGED_IN = "loggedIn";
 
 const logIn = nickname => {
-    widow.socket = io("/");
-    widow.socket.emit(window.events.setNickName, {nickname})
+    const socket = io("/");
+    socket.emit(window.events.setNickName, {nickname})
+    initSockets(socket);
 }
 
 if (nickname === null){
