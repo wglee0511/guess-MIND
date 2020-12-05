@@ -25,5 +25,5 @@ const hadleServerListener = () => {
 const server =  app.listen(PORT,hadleServerListener);
 const io = socketIO(server);
 
-io.on("connection", socket => socketController(socket));
+io.on("connection", socket => socketController(socket, io));
 

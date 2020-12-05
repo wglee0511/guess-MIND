@@ -1,15 +1,23 @@
 import events from "./events"
 
-const socketController = (socket) => {
+let sockets = [];
+
+const socketController = (socket, io) => {
     //on assets/js/login.js
-    const broadcast = (event, data) => socket.broadcast.emit(event, data)
+    const broadcast = (event, data) => socket.broadcast.emit(event, data);
+    const superBroadcast = ( event, data ) => io.emit(event, data);
+    const sendPlayerUpdate = () => superBroadcast(events.playerUpdate, { sockets });
 
     socket.on(events.setNickName, ({nickname}) =>{
         socket.nickname = nickname;
+        sockets.push( { id : socket.id, points : 0, nickname : nickname } );
         broadcast(events.newUser, { nickname });
+        sendPlayerUpdate();
     });
     socket.on(events.disconnect, () => {
+        sockets = sockets.filter( aSocket => aSocket.id !== socket.id );
         broadcast(events.disconnected, { nickname : socket.nickname });
+        sendPlayerUpdate();
     });
     socket.on(events.sendMsg, ({message}) => {
         broadcast(events.newMsg, { message, nickname : socket.nickname });
@@ -25,6 +33,8 @@ const socketController = (socket) => {
     });
 
 }
+
+
 
 
 export default socketController
